@@ -29,7 +29,7 @@
        <item>
         <widget class="QLabel" name="label">
          <property name="text">
-          <string>class 1</string>
+          <string>class</string>
          </property>
         </widget>
        </item>
@@ -79,7 +79,7 @@
        <item>
         <widget class="QLabel" name="label_6">
          <property name="text">
-          <string>class 2</string>
+          <string>class</string>
          </property>
         </widget>
        </item>
@@ -129,7 +129,7 @@
        <item>
         <widget class="QLabel" name="label_7">
          <property name="text">
-          <string>class 3</string>
+          <string>class</string>
          </property>
         </widget>
        </item>
@@ -179,7 +179,7 @@
        <item>
         <widget class="QLabel" name="label_8">
          <property name="text">
-          <string>class 4</string>
+          <string>class</string>
          </property>
         </widget>
        </item>
@@ -229,7 +229,7 @@
        <item>
         <widget class="QLabel" name="label_9">
          <property name="text">
-          <string>class 5</string>
+          <string>class</string>
          </property>
         </widget>
        </item>
@@ -286,7 +286,7 @@
             </font>
            </property>
            <property name="text">
-            <string> </string>
+            <string/>
            </property>
           </widget>
          </item>
@@ -338,126 +338,12 @@
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QWidget" name="layoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>390</x>
-      <y>70</y>
-      <width>251</width>
-      <height>371</height>
-     </rect>
-    </property>
-    <layout class="QVBoxLayout" name="verticalLayout_4">
-     <item>
-      <widget class="QFrame" name="frame">
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(85, 170, 255);</string>
-       </property>
-       <property name="frameShape">
-        <enum>QFrame::StyledPanel</enum>
-       </property>
-       <property name="frameShadow">
-        <enum>QFrame::Raised</enum>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pushButton_2">
-       <property name="text">
-        <string>input</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <layout class="QHBoxLayout" name="horizontalLayout">
-       <item>
-        <layout class="QVBoxLayout" name="verticalLayout_2">
-         <item>
-          <widget class="QLabel" name="label_2">
-           <property name="text">
-            <string>class 1</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_3">
-           <property name="text">
-            <string>class 2</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_4">
-           <property name="text">
-            <string>class 3</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_5">
-           <property name="text">
-            <string>class 4</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_14">
-           <property name="text">
-            <string>class 5</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QVBoxLayout" name="verticalLayout_3">
-         <item>
-          <widget class="QLabel" name="label_15">
-           <property name="text">
-            <string>--%</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_16">
-           <property name="text">
-            <string>--%</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_17">
-           <property name="text">
-            <string>--%</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_18">
-           <property name="text">
-            <string>--%</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_19">
-           <property name="text">
-            <string>--%</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-      </layout>
-     </item>
-    </layout>
-   </widget>
    <widget class="QLabel" name="label_21">
     <property name="geometry">
      <rect>
-      <x>398</x>
-      <y>440</y>
-      <width>241</width>
+      <x>420</x>
+      <y>390</y>
+      <width>191</width>
       <height>28</height>
      </rect>
     </property>
@@ -467,7 +353,7 @@
      </font>
     </property>
     <property name="text">
-     <string>output = Class x</string>
+     <string/>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
@@ -500,6 +386,9 @@
       <layout class="QHBoxLayout" name="horizontalLayout_2">
        <item>
         <widget class="QPushButton" name="pushButton_4">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
          <property name="text">
           <string>Data Training</string>
          </property>
@@ -507,6 +396,9 @@
        </item>
        <item>
         <widget class="QPushButton" name="pushButton_5">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
          <property name="text">
           <string>Data Validation</string>
          </property>
@@ -588,26 +480,6 @@
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="label_13">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="text">
-          <string>Learning Rate</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLineEdit" name="lineEdit_3">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="text">
-          <string>0.001</string>
-         </property>
-        </widget>
-       </item>
-       <item>
         <widget class="QPushButton" name="pushButton_10">
          <property name="styleSheet">
           <string notr="true">background-color: rgb(85, 170, 255);</string>
@@ -621,7 +493,7 @@
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>190</x>
@@ -638,14 +510,64 @@
        </property>
       </widget>
      </item>
-     <item>
-      <widget class="QPushButton" name="pushButton_11">
-       <property name="text">
-        <string>Graph Accuracy</string>
-       </property>
-      </widget>
-     </item>
     </layout>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>420</x>
+      <y>110</y>
+      <width>200</width>
+      <height>200</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border: 1px solid black;</string>
+    </property>
+    <property name="lineWidth">
+     <number>0</number>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_2">
+    <property name="geometry">
+     <rect>
+      <x>420</x>
+      <y>320</y>
+      <width>201</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 255, 127);</string>
+    </property>
+    <property name="text">
+     <string>input</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_12">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>420</x>
+      <y>350</y>
+      <width>201</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(85, 170, 255);</string>
+    </property>
+    <property name="text">
+     <string>predict</string>
+    </property>
    </widget>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>

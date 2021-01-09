@@ -2,35 +2,52 @@ import index
 import matplotlib.pyplot as plt
 
 
+def resetDataset():
+    import shutil
+    from pathlib import Path
+    import os
+
+    Path("data").mkdir(parents=True, exist_ok=True)
+    Path("dataset").mkdir(parents=True, exist_ok=True)
+    Path("predict").mkdir(parents=True, exist_ok=True)
+    directory = 'data'
+    directory2 = 'predict'
+    directory3 = 'dataset'
+    # removing directory
+    shutil.rmtree(directory)
+    shutil.rmtree(directory2)
+    shutil.rmtree(directory3)
+
+
 #FUNGSI TRAINING MODEL
 def trainingModel(epochs, batch_size, num_class):
     #IMPORT LIBRARY
-    import tensorflow as tf
+
+    from keras.models import model_from_json
     from tensorflow import keras
     from keras.preprocessing.image import ImageDataGenerator, array_to_img, img_to_array
-    from keras.models import Sequential
+    from keras.models import Sequential, Model
     from keras.layers import Conv2D, MaxPooling2D
     from keras.layers import Activation, Dropout, Flatten, Dense
     from keras import backend as K
+    import tensorflow as tf
     import os
 
-    img_width, img_height = 150, 150
+    #PARAMETER INPUT UNTUK NETWORK
+    dim = (150, 150)
+    channel = (3, )
+    input_shape = dim + channel
 
+    #batch_size
+    batch_size = batch_size
+    epochs = epochs
+    num_class = num_class
+
+    #DIREKTORI
     train_data_dir = 'data/training'
     valid_data_dir = 'data/validation'
-    #test_data_dir = 'data/test'
 
     ## ARSITEKTUR
-    train_datagen = ImageDataGenerator(rescale=1. / 255,
-                                       shear_range=0.2,
-                                       zoom_range=0.2,
-                                       horizontal_flip=True)
-
-    #input shape
-    if K.image_data_format() == 'channels_first':
-        input_shape = (3, img_width, img_height)
-    else:
-        input_shape = (img_width, img_height, 3)
 
     model = Sequential()
     model.add(Conv2D(32, (3, 3), input_shape=input_shape))
@@ -57,48 +74,96 @@ def trainingModel(epochs, batch_size, num_class):
                   loss='categorical_crossentropy',
                   metrics=['accuracy'])
 
+    #TRANSFORMASI DATA (IMAGE AUGMENTATION)
+    train_datagen = ImageDataGenerator(rescale=1. / 255,
+                                       shear_range=0.2,
+                                       zoom_range=0.2,
+                                       horizontal_flip=True)
+
+    validation_datagen = ImageDataGenerator(rescale=1. / 255,
+                                            shear_range=0.2,
+                                            zoom_range=0.2,
+                                            horizontal_flip=True)
+
+    #FLOW DATA
+    # categorical = 1,2,3,4,5
+
     train_generator = train_datagen.flow_from_directory(
         train_data_dir,
-        target_size=(img_width, img_height),
+        target_size=dim,
         batch_size=batch_size,
-        class_mode='categorical')
-
-    validation_datagen = ImageDataGenerator(rescale=1 / 255.0)
+        class_mode='categorical',
+        shuffle=True)
     validation_generator = validation_datagen.flow_from_directory(
         valid_data_dir,
         batch_size=batch_size,
+        target_size=dim,
         class_mode='categorical',
-        target_size=(img_height, img_width))
+        shuffle=True)
 
-    history = model.fit(
-        train_generator,
-        epochs=epochs,
-        verbose=1,
-        validation_data=validation_generator,
-    )
+    num_class = validation_generator.num_classes
+    history = model.fit(train_generator,
+                        steps_per_epoch=len(train_generator),
+                        epochs=epochs,
+                        validation_data=validation_generator,
+                        validation_steps=len(validation_generator),
+                        shuffle=True)
 
-    model_save_weight = model.save_weights('weight.h5')
-    model_save = model.save('model.h5')
+    # serialize model to JSON
+    model_json = model.to_json()
+    with open("model.json", "w") as json_file:
+        json_file.write(model_json)
+    # serialize weights to HDF5
+    model_save = model.save_weights("model.h5")
+    print("Saved model to disk")
+
+    #model_save_weight = model.save_weights('weight.h5')
+    #model_save = model.save('model.h5')
 
     global acc, val_acc, loss, val_loss
-
     acc = history.history["accuracy"]
     val_acc = history.history['val_accuracy']
     loss = history.history['loss']
     val_loss = history.history['val_loss']
-    print(acc, val_acc, loss, val_loss)
+    print("accuracy", acc, val_acc, "loss", loss, val_loss)
+
+    return model
 
 
-def graphAccuracy(acc, val_acc, epochs):
-    fig = plt.figure(figsize=(6, 6))
-    plt.plot(epochs, acc, 'r', label="Training Accuracy")
-    plt.plot(epochs, val_acc, 'b', label="Validation Accuracy")
-    plt.xlabel('Epoch')
-    plt.ylabel('Accuracy')
-    plt.title('Training and validation accuracy')
-    plt.legend(loc='lower right')
-    plt.show()
-    fig.savefig('Accuracy_curve_CNN.jpg')
+def predict(img):
+    import numpy as np
+    from keras.preprocessing import image
+    from keras.preprocessing.image import ImageDataGenerator
+    from keras.models import model_from_json
 
+    dim = (150, 150)
+    # load json and create model
+    json_file = open('model.json', 'r')
+    loaded_model_json = json_file.read()
+    json_file.close()
+    loaded_model = model_from_json(loaded_model_json)
+    # load weights into new model
+    loaded_model.load_weights("model.h5")
+    print("Loaded model from disk")
+    dim = (150, 150)
+    validation_datagen = ImageDataGenerator(rescale=1. / 255)
+    validation_generator = validation_datagen.flow_from_directory(
+        'data/validation',
+        batch_size=16,
+        target_size=dim,
+        class_mode='categorical',
+        shuffle=True)
 
-#trainingModel(1,16,5)
+    test_image = image.load_img(img, target_size=dim)
+    test_image = image.img_to_array(test_image)
+    test_image = np.expand_dims(test_image, axis=0)
+
+    result = loaded_model.predict(test_image)
+    labels = (validation_generator.class_indices)
+    category = []
+    for i in labels:
+        category.append(i)
+    kelas = np.argmax(result)
+    global predictions
+    predictions = category[kelas]
+    print(predictions)
