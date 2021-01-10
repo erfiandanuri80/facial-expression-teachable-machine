@@ -273,7 +273,7 @@
         </widget>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <layout class="QHBoxLayout" name="horizontalLayout">
          <item>
           <widget class="QLabel" name="label_22">
            <property name="font">
@@ -481,6 +481,9 @@
        </item>
        <item>
         <widget class="QPushButton" name="pushButton_10">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
          <property name="styleSheet">
           <string notr="true">background-color: rgb(85, 170, 255);</string>
          </property>
@@ -567,6 +570,19 @@
     </property>
     <property name="text">
      <string>predict</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_11">
+    <property name="geometry">
+     <rect>
+      <x>190</x>
+      <y>80</y>
+      <width>161</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Reset</string>
     </property>
    </widget>
   </widget>

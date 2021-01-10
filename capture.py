@@ -35,6 +35,10 @@ def split_data(source, training, validation):
         copyfile(this_file, destination)
 
 
+def realtimeCapture():
+    pass
+
+
 def singleCapture():
     cap = cv2.VideoCapture(0)
     while True:

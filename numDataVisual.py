@@ -9,7 +9,6 @@ def showDataTraining(source):
         dir.append(subdirs)
 
     if dir == []:
-        global message
         message = 'insert data please!'
         print(message)
     else:
@@ -34,7 +33,6 @@ def showDataValidation(source):
         dir.append(subdirs)
 
     if dir == []:
-        global message
         message = 'insert data please!'
         print(message)
     else:

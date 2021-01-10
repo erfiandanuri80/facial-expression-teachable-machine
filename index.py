@@ -13,28 +13,31 @@ class Index(QtWidgets.QMainWindow):
         super(Index, self).__init__()
         uic.loadUi('index.ui', self)
         num_class = int(num_class)
-        project.resetDataset()
+        #project.resetDataset()
 
         #KONDISI JUMLAH INPUTAN CLASS
         if num_class == 2:
 
+            self.label_7.hide()
             self.pushButton_7.hide()
             self.comboBox_3.hide()
 
+            self.label_8.hide()
             self.pushButton_8.hide()
             self.comboBox_4.hide()
 
+            self.label_9.hide()
             self.pushButton_9.hide()
             self.comboBox_5.hide()
         elif num_class == 3:
-
+            self.label_8.hide()
             self.pushButton_8.hide()
             self.comboBox_4.hide()
-
+            self.label_9.hide()
             self.pushButton_9.hide()
             self.comboBox_5.hide()
         elif num_class == 4:
-
+            self.label_9.hide()
             self.pushButton_9.hide()
             self.comboBox_5.hide()
 
@@ -49,6 +52,7 @@ class Index(QtWidgets.QMainWindow):
         self.pushButton_8.clicked.connect(self.createDatasetClass4)
         self.pushButton_9.clicked.connect(self.createDatasetClass5)
         self.pushButton_10.clicked.connect(self.trainModel)
+        self.pushButton_11.clicked.connect(self.resetDataset)
         self.pushButton_12.clicked.connect(self.predict)
         self.show()
 
@@ -59,6 +63,7 @@ class Index(QtWidgets.QMainWindow):
         capture.capturingFrame(nameClass)
         self.pushButton_4.setEnabled(True)
         self.pushButton_5.setEnabled(True)
+        self.pushButton_10.setEnabled(True)
 
     #MEMBUAT DATASET IMAGE KE CLASS 2
     def createDatasetClass2(self):
@@ -125,7 +130,7 @@ class Index(QtWidgets.QMainWindow):
         self.label_21.setText(pred)
 
     def resetDataset(self):
-        pass
+        project.resetDataset()
 
     #KEMBALI KE MENU DIALOG
     def backtoMenu(self):
