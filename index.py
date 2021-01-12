@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import QApplication, QWidget, QLabel
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 import sys
-import capture, main, project, numDataVisual
+import capture, main, training, numDataVisual, predict, resetDataset
 
 #CODE UNTUK HALAMAN UTAMA DEKSTOP
 
@@ -54,6 +54,8 @@ class Index(QtWidgets.QMainWindow):
         self.pushButton_10.clicked.connect(self.trainModel)
         self.pushButton_11.clicked.connect(self.resetDataset)
         self.pushButton_12.clicked.connect(self.predict)
+        self.pushButton_13.clicked.connect(self.realtimePredict)
+
         self.show()
 
     #MEMBUAT DATASET IMAGE KE CLASS 1
@@ -61,8 +63,6 @@ class Index(QtWidgets.QMainWindow):
         nameClass = self.comboBox.currentText()
         print("class 1 =", nameClass)
         capture.capturingFrame(nameClass)
-        self.pushButton_4.setEnabled(True)
-        self.pushButton_5.setEnabled(True)
         self.pushButton_10.setEnabled(True)
 
     #MEMBUAT DATASET IMAGE KE CLASS 2
@@ -70,32 +70,24 @@ class Index(QtWidgets.QMainWindow):
         nameClass = self.comboBox_2.currentText()
         print("class 2 =", nameClass)
         capture.capturingFrame(nameClass)
-        self.pushButton_4.setEnabled(True)
-        self.pushButton_5.setEnabled(True)
 
     #MEMBUAT DATASET IMAGE KE CLASS 3
     def createDatasetClass3(self):
         nameClass = self.comboBox_3.currentText()
         print("class 3 =", nameClass)
         capture.capturingFrame(nameClass)
-        self.pushButton_4.setEnabled(True)
-        self.pushButton_5.setEnabled(True)
 
     #MEMBUAT DATASET IMAGE KE CLASS 4
     def createDatasetClass4(self):
         nameClass = self.comboBox_4.currentText()
         print("class 4 =", nameClass)
         capture.capturingFrame(nameClass)
-        self.pushButton_4.setEnabled(True)
-        self.pushButton_5.setEnabled(True)
 
     #MEMBUAT DATASET IMAGE KE CLASS 5
     def createDatasetClass5(self):
         nameClass = self.comboBox_5.currentText()
         print("class 5 =", nameClass)
         capture.capturingFrame(nameClass)
-        self.pushButton_4.setEnabled(True)
-        self.pushButton_5.setEnabled(True)
 
     #SHOW DISTRIBUSI DATA TRAINING PER CLASS
     def showDataTraining(self):
@@ -107,15 +99,24 @@ class Index(QtWidgets.QMainWindow):
 
     #FMEMANGGIL FUNGSI TRAINING MODEL
     def trainModel(self):
+        self.label_24.setText("PROSES MODEL SUKSES , TUNGGU SEBENTAR")
         epochs = self.lineEdit.text()
         batch_size = self.comboBox_6.currentText()
         num_class = self.label_22.text()
         epochs = int(epochs)
         batch_size = int(batch_size)
         num_class = int(num_class)
-        project.trainingModel(epochs, batch_size, num_class)
-        if project.acc != "":
+
+        info = self.label_24.text()
+        if info == "PROSES MODEL SUKSES , TUNGGU SEBENTAR":
+            training.trainingModel(epochs, batch_size, num_class)
             self.label_24.setText("TRAINING MODEL SUKSES")
+        else:
+            training.trainingModel(epochs, batch_size, num_class)
+            self.label_24.setText("TRAINING MODEL SUKSES")
+
+    def realtimePredict(self):
+        predict.realtimePredict()
 
     def inputPredict(self):
         capture.singleCapture()
@@ -125,12 +126,12 @@ class Index(QtWidgets.QMainWindow):
 
     def predict(self):
         img = 'predict/predict.jpg'
-        project.predict(img)
-        pred = project.predictions
+        predict.inputPredict(img)
+        pred = predict.predictions
         self.label_21.setText(pred)
 
     def resetDataset(self):
-        project.resetDataset()
+        resetDataset.resetDataset()
 
     #KEMBALI KE MENU DIALOG
     def backtoMenu(self):
