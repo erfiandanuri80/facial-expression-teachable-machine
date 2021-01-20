@@ -489,7 +489,7 @@
        <item>
         <widget class="QPushButton" name="pushButton_10">
          <property name="enabled">
-          <bool>false</bool>
+          <bool>true</bool>
          </property>
          <property name="styleSheet">
           <string notr="true">background-color: rgb(85, 170, 255);</string>

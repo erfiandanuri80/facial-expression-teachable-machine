@@ -6,7 +6,7 @@ import splitData
 #fungsi mengambil dataframe image ke class
 def capturingFrame(formatName):
     cap = cv2.VideoCapture(0)
-    count = 0
+    count = 1
     Path("dataset").mkdir(parents=True, exist_ok=True)
     while True:
 
@@ -18,8 +18,12 @@ def capturingFrame(formatName):
         cv2.imwrite(
             "dataset/{}/{}_{}.jpg".format(formatName, formatName, count),
             frame)
+
+        ind = str(count)
+        cv2.putText(frame, ind, (30, 40), cv2.FONT_HERSHEY_SIMPLEX, 1,
+                    (0, 255, 255), 2)
         count = count + 1
-        print(count)
+        #print(count)
 
         # Display the resulting frame
         cv2.imshow('{}'.format(formatName), frame)
@@ -53,10 +57,8 @@ def singleCapture():
         cv2.imshow('predict', frame)
 
         Path("predict").mkdir(parents=True, exist_ok=True)
-        k = cv2.waitKey(1)
 
-        #tombol spasi
-        if k % 256 == 32:
+        if cv2.waitKey(1) != -1:
             cv2.imwrite("predict/predict.jpg", frame)
             break
 

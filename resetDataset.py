@@ -17,3 +17,4 @@ def resetDataset():
     shutil.rmtree('data')
     shutil.rmtree('predict')
     shutil.rmtree('dataset')
+    print("Data telah direset")

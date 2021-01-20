@@ -43,8 +43,8 @@ class Index(QtWidgets.QMainWindow):
 
         self.label_22.setText(str(num_class))
         self.pushButton.clicked.connect(self.createDatasetClass1)
-        self.pushButton_3.clicked.connect(self.backtoMenu)
         self.pushButton_2.clicked.connect(self.inputPredict)
+        self.pushButton_3.clicked.connect(self.backtoMenu)
         self.pushButton_4.clicked.connect(self.showDataTraining)
         self.pushButton_5.clicked.connect(self.showDataValidation)
         self.pushButton_6.clicked.connect(self.createDatasetClass2)
@@ -99,7 +99,6 @@ class Index(QtWidgets.QMainWindow):
 
     #FMEMANGGIL FUNGSI TRAINING MODEL
     def trainModel(self):
-        self.label_24.setText("PROSES MODEL SUKSES , TUNGGU SEBENTAR")
         epochs = self.lineEdit.text()
         batch_size = self.comboBox_6.currentText()
         num_class = self.label_22.text()
@@ -107,13 +106,8 @@ class Index(QtWidgets.QMainWindow):
         batch_size = int(batch_size)
         num_class = int(num_class)
 
-        info = self.label_24.text()
-        if info == "PROSES MODEL SUKSES , TUNGGU SEBENTAR":
-            training.trainingModel(epochs, batch_size, num_class)
-            self.label_24.setText("TRAINING MODEL SUKSES")
-        else:
-            training.trainingModel(epochs, batch_size, num_class)
-            self.label_24.setText("TRAINING MODEL SUKSES")
+        training.trainingModel(epochs, batch_size, num_class)
+        self.label_24.setText("TRAINING MODEL SUKSES")
 
     def realtimePredict(self):
         predict.realtimePredict()

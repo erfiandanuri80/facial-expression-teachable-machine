@@ -1,5 +1,5 @@
 import index
-from tensorflow import keras
+import keras
 from keras.preprocessing import image
 from keras.preprocessing.image import ImageDataGenerator
 
@@ -32,9 +32,10 @@ def trainingModel(epochs, batch_size, num_class):
     model.add(Activation('relu'))
     model.add(MaxPooling2D(pool_size=(2, 2)))
 
-    model.add(Conv2D(32, (3, 3)))
+    model.add(Conv2D(64, (3, 3)))
     model.add(Activation('relu'))
     model.add(MaxPooling2D(pool_size=(2, 2)))
+
     model.add(Flatten())
 
     model.add(Dense(64, activation='relu'))
